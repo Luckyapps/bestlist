@@ -11,14 +11,17 @@
         <h1 id="list_name">TITEL</h1>
         <hr>
 
-        <div id="list_content"></div>
+        <div><ol id="list_content"></ol></div>
 
-        <button id="additem_button" onclick="bestlist_additem()">Elemente Hinzufugen.</button>
+        <button id="additem_button" onclick="bestlist_add_init()">Elemente Hinzufugen.</button>
 
         <div id="bestlist_create_form">
             <h2>Neue Liste Hinzufugen</h2>
+            <p id="bestlist_create_form_text"></p>
             <input id="bestlist_create_form_input"></input>
-            <button onclick="bestlist_create()">Senden</button>
+            <button onclick="bestlist_create_add()">Senden</button>
+            <hr>
+            <button onclick="bestlist_create()">Liste erstellen</button>
         </div>
 
     </body>

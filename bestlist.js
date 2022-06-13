@@ -1,4 +1,4 @@
-var bestlist_menu, bestlist_title, bestlist_create_form_text,list_content, list_title, list_current, list_all, list_create_form, additem_button, list_eingabe = [], bestlist_create_form_input, bestlist_create_form_title_input, program_state;
+var bestlist_menu,bestlist_create_form_add_button, bestlist_create_form_button, bestlist_title, bestlist_create_form_text,list_content, list_title, list_current, list_all, list_create_form, additem_button, list_eingabe = [], bestlist_create_form_input, bestlist_create_form_title_input, program_state;
 
 if(window.location.href.match(/index/ig)){
    window.addEventListener("load", bestlist_start_home); 
@@ -12,6 +12,8 @@ function keyset(evt){
     if(evt.key == "Enter"){
         if(programm_state == "create_list"){
             bestlist_create_add();
+        }else if(programm_state = "add_to_list"){
+            bestlist_add_add();
         }
     }
 }
@@ -22,6 +24,8 @@ function bestlist_start_list(){
     bestlist_create_form_text = document.getElementById("bestlist_create_form_text");
     bestlist_create_form_input = document.getElementById("bestlist_create_form_input");
     bestlist_create_form_title_input = document.getElementById("bestlist_create_form_title_input");
+    bestlist_create_form_add_button = document.getElementById("bestlist_create_form_add_button");
+    bestlist_create_form_button = document.getElementById("bestlist_create_form_button");
     list_content = document.getElementById("list_content");
     list_title = document.getElementById("list_title");
     if(sessionStorage.getItem("list_site_mode")){
@@ -88,13 +92,33 @@ function bestlist_open(index){
 }
 
 function bestlist_add_init(){
+    programm_state = "add_to_list";
+    additem_button.style.display = "none";
+    bestlist_create_form_title_input.style.display = "none";
+    list_create_form.style.display = "block";
+    bestlist_create_form_add_button.setAttribute('onclick',"bestlist_add_add()");
+    bestlist_create_form_button.setAttribute("onclick", "bestlist_add()");
+}
 
+function bestlist_add_add(){
+    programm_state = "add_to_list";
+    list_all.items[sessionStorage.getItem("list_current_index") - 1].content.push(bestlist_create_form_input.value);
+    console.log(list_all);
+    bestlist_create_form_input.value = "";
+}
+
+function bestlist_add(){
+    localStorage.setItem("bestlist", JSON.stringify(list_all));
+    bestlist_show(sessionStorage.getItem("list_current_index"));
 }
 
 function bestlist_create_init(){
     programm_state = "create_list";
     additem_button.style.display = "none";
+    bestlist_create_form_title_input.style.display = "block";
     list_create_form.style.display = "block";
+    bestlist_create_form_add_button.setAttribute('onclick',"bestlist_create_add()");
+    bestlist_create_form_button.setAttribute("onclick", "bestlist_create()");
 }
 
 function bestlist_create_add(){
@@ -112,6 +136,7 @@ function bestlist_create(){
     }
     reload_list(list_object_temp);
     bestlist_show(list_all.items.length);
+    list_eingabe = [];
 }
 
 function bestlist_show(index){
@@ -124,6 +149,7 @@ function bestlist_show(index){
     programm_state = "show_list";
     list_all = JSON.parse(localStorage.getItem("bestlist"));
     console.log("GOGOGOG");
+    list_content.innerHTML = "";
     list_title.innerHTML = list_all.items[index].data.title;
     for(i=0; i<list_all.items[index].content.length;i++){
         console.log("GO");

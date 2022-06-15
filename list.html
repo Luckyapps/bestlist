@@ -15,15 +15,26 @@
         <div><ol id="list_content"></ol></div>
 
         <button id="additem_button" onclick="bestlist_add_init()">Elemente Hinzufugen.</button>
+        <button onclick="doubles_check()">Check</button><button onclick="doubles_delete()">Delete</button>
 
         <div id="bestlist_create_form">
             <h2>Neue Liste Hinzufugen</h2>
-            <p id="bestlist_create_form_text"></p>
-            Titel: <input id="bestlist_create_form_title_input"></input>
-            Name: <input id="bestlist_create_form_input"></input>
-            <button id="bestlist_create_form_add_button" onclick="bestlist_create_add()">Senden</button>
+            <p id='bestlist_create_form_text'></p>
+            Bitte einen Namen eingeben: <input id='bestlist_create_form_title_input'></input>
+            <!--Name: --><span style="display:none"><input id='bestlist_create_form_input'></input>
+            <button id='bestlist_create_form_add_button' onclick='bestlist_create_add()'>Senden</button></span>
             <hr>
-            <button id="bestlist_create_form_button" onclick="bestlist_create()">Liste erstellen</button>
+            <button id='bestlist_create_form_button' onclick='bestlist_create()'>Liste erstellen</button>
+        </div>
+
+        <div id="bestlist_add_form">
+            <h2>Elemente zur Liste Himzufuegen</h2>
+            Name: <input id='bestlist_add_form_input'></input>
+            <button id='bestlist_add_form_add_button' onclick='bestlist_add_add()'>Senden</button>
+            <hr>
+            <h3>Diese Namen Hinzufugen:</h3>
+            <div id='bestlist_add_form_text'></div>
+            <button id='bestlist_add_form_button' onclick='bestlist_add()'>Liste aktualisieren</button>
         </div>
 
     </body>

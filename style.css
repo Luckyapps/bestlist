@@ -15,6 +15,7 @@
     margin: 10px;
     background-color: orange;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .card h2{

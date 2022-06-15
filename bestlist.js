@@ -1,4 +1,15 @@
-var bestlist_menu,bestlist_create_form_add_button, bestlist_create_form_button, bestlist_title, bestlist_create_form_text,list_content, list_title, list_current, list_all, list_create_form, additem_button, list_eingabe = [], bestlist_create_form_input, bestlist_create_form_title_input, program_state;
+var bestlist_menu, bestlist_add_eingabe = [], bestlist_create_form_add_button, bestlist_create_form_button, bestlist_title, bestlist_create_form_text,list_content, list_title, list_current, list_all, list_create_form, additem_button, list_eingabe = [], bestlist_create_form_input, bestlist_create_form_title_input, program_state;
+
+var bestlist_add_form_text,
+    bestlist_add_form_input,
+    bestlist_add_form_title_input,
+    bestlist_add_form_add_button,
+    bestlist_add_form_button,
+    doubles = {
+        "items":[]
+    },
+    doubles_count = 0,
+    TMP_list_all;
 
 if(window.location.href.match(/index/ig)){
    window.addEventListener("load", bestlist_start_home); 
@@ -11,7 +22,8 @@ window.addEventListener("keydown", keyset);
 function keyset(evt){
     if(evt.key == "Enter"){
         if(programm_state == "create_list"){
-            bestlist_create_add();
+            //bestlist_create_add();
+            bestlist_create();
         }else if(programm_state = "add_to_list"){
             bestlist_add_add();
         }
@@ -19,13 +31,21 @@ function keyset(evt){
 }
 
 function bestlist_start_list(){
-    list_create_form = document.getElementById("bestlist_create_form");
     additem_button = document.getElementById("additem_button");
+    list_create_form = document.getElementById("bestlist_create_form");
     bestlist_create_form_text = document.getElementById("bestlist_create_form_text");
     bestlist_create_form_input = document.getElementById("bestlist_create_form_input");
     bestlist_create_form_title_input = document.getElementById("bestlist_create_form_title_input");
     bestlist_create_form_add_button = document.getElementById("bestlist_create_form_add_button");
     bestlist_create_form_button = document.getElementById("bestlist_create_form_button");
+    
+    bestlist_add_form_text = document.getElementById("bestlist_add_form_text");
+    bestlist_add_form_input = document.getElementById("bestlist_add_form_input");
+    bestlist_add_form_title_input = document.getElementById("bestlist_add_form_title_input");
+    bestlist_add_form_add_button = document.getElementById("bestlist_add_form_add_button");
+    bestlist_add_form_button = document.getElementById("bestlist_add_form_button");
+    list_add_form = document.getElementById("bestlist_add_form");
+
     list_content = document.getElementById("list_content");
     list_title = document.getElementById("list_title");
     if(sessionStorage.getItem("list_site_mode")){
@@ -94,21 +114,107 @@ function bestlist_open(index){
 function bestlist_add_init(){
     programm_state = "add_to_list";
     additem_button.style.display = "none";
-    bestlist_create_form_title_input.style.display = "none";
-    list_create_form.style.display = "block";
-    bestlist_create_form_add_button.setAttribute('onclick',"bestlist_add_add()");
-    bestlist_create_form_button.setAttribute("onclick", "bestlist_add()");
+    list_add_form.style.display = "block";
 }
 
 function bestlist_add_add(){
     programm_state = "add_to_list";
-    list_all.items[sessionStorage.getItem("list_current_index") - 1].content.push(bestlist_create_form_input.value);
-    console.log(list_all);
-    bestlist_create_form_input.value = "";
+    bestlist_add_eingabe.push(bestlist_add_form_input.value);
+    //list_all.items[sessionStorage.getItem("list_current_index") - 1].content.push(bestlist_add_form_input.value);
+    bestlist_add_form_input.value = "";
+    build_edit_list();
+}
+
+function build_edit_list(){
+    bestlist_add_form_text.innerHTML = "";
+    for(i=0;i<bestlist_add_eingabe.length;i++){
+        bestlist_add_form_text.innerHTML = bestlist_add_form_text.innerHTML +"<li onclick='bestlist_add_delete(this)' value='"+ i +"'>"+ bestlist_add_eingabe[i] +"</li>";
+    }
+    //bestlist_add_form_text.innerHTML = bestlist_add_form_text.innerHTML +"<li onclick='bestlist_add_delete(this)' value='"+ val_temp +"'>"+ bestlist_add_eingabe[bestlist_add_eingabe.length - 1] +"</li>";
+}
+
+function bestlist_add_delete(elem){
+    var id = elem.value;
+    console.log(id);
+    bestlist_add_eingabe.splice(id, 1);
+    console.log(bestlist_add_eingabe);
+    build_edit_list();
 }
 
 function bestlist_add(){
+    //doubles_check(bestlist_add_eingabe);
+    for(i=0;i<bestlist_add_eingabe.length;i++){
+        list_all.items[sessionStorage.getItem("list_current_index") - 1].content.push(bestlist_add_eingabe[i]);
+    }
+    //list_all.items[sessionStorage.getItem("list_current_index") - 1].content.push(bestlist_add_eingabe);
+    console.log(list_all);
     localStorage.setItem("bestlist", JSON.stringify(list_all));
+    bestlist_show(sessionStorage.getItem("list_current_index"));
+}
+
+function doubles_check(mode){
+    /*for(i=0;i<eingabe.length;i++){
+        for(j=0;j<eingabe.length;i++){
+            if(eingabe[i] == eingabe[j]){
+                console.error("ERROR");
+            }
+        }
+        for(k=0;k<list_all.items[sessionStorage.getItem("list_current_index") - 1].content.length;k++){
+            if(eingabe[i] == list_all.items[sessionStorage.getItem("list_current_index") - 1].content[k]){
+                console.warn("ERROR");
+            }
+        }
+    }*/
+    if(mode != "repeat"){
+        TMP_list_all = list_all.items[sessionStorage.getItem("list_current_index") - 1].content;
+    }
+    console.warn("Start");
+    var listitems = TMP_list_all;
+    for(i=0;i<listitems.length;i++){
+        for(j=0;j<listitems.length;j++){
+            if((listitems[i] == listitems[j]) && (i != j)){
+                console.error("Doppelt: "+ i +" "+ j +" : "+ listitems[i] +", "+ listitems[j]);
+                var tmp_i = i + doubles_count; 
+                var tmp_j = j + doubles_count;
+                console.log(i);
+                console.log(doubles_count);
+                console.log(tmp_i);
+                list_content.getElementsByTagName("li")[tmp_i].style.color = "red";
+                list_content.getElementsByTagName("li")[tmp_j].style.color = "red";
+                console.log(TMP_list_all);
+                console.log(listitems[i]);
+                var doubles_current = doubles.items.length;
+                doubles.items[doubles_current] = {};
+                doubles.items[doubles_current].names = [listitems[i], listitems[j]];
+                doubles.items[doubles_current].index1 = i;
+                doubles.items[doubles_current].index2 = j;
+                //doubles_count = doubles_count + 1;
+                console.log(doubles);
+                //TMP_list_all.splice(i,1);
+                TMP_list_all[i] = Math.random();
+                listitems = TMP_list_all;
+                doubles_check("repeat");
+                return;
+            }
+            console.log((listitems[i] == listitems[j]));
+            if((j == (listitems.length - 1)) && (i == (listitems.length - 1))){
+                console.warn("Fertig");
+                doubles_count = 0;
+                console.warn(list_all);
+            }
+        }
+    }
+}
+
+function doubles_delete(){
+    for(i=0;i<doubles.items.length;i++){
+        list_all.items[sessionStorage.getItem("list_current_index") - 1].content.splice(doubles.items[i].index1,1);
+        console.log(list_all.items[sessionStorage.getItem("list_current_index") - 1].content);
+    }
+    localStorage.setItem("bestlist", JSON.stringify(list_all));
+    doubles = {
+        "items":[]
+    };
     bestlist_show(sessionStorage.getItem("list_current_index"));
 }
 
@@ -117,8 +223,8 @@ function bestlist_create_init(){
     additem_button.style.display = "none";
     bestlist_create_form_title_input.style.display = "block";
     list_create_form.style.display = "block";
-    bestlist_create_form_add_button.setAttribute('onclick',"bestlist_create_add()");
-    bestlist_create_form_button.setAttribute("onclick", "bestlist_create()");
+    /*bestlist_create_form_add_button.setAttribute('onclick',"bestlist_create_add()");
+    bestlist_create_form_button.setAttribute("onclick", "bestlist_create()");*/
 }
 
 function bestlist_create_add(){
@@ -143,6 +249,7 @@ function bestlist_show(index){
     console.log(index);
     additem_button.style.display = "block";
     list_create_form.style.display = "none";
+    list_add_form.style.display = "none";
     console.log("GO");
     index = index - 1;
     sessionStorage.setItem("list_site_mode", "show");
@@ -153,6 +260,8 @@ function bestlist_show(index){
     list_title.innerHTML = list_all.items[index].data.title;
     for(i=0; i<list_all.items[index].content.length;i++){
         console.log("GO");
-        list_content.innerHTML = list_content.innerHTML +"<li>"+ list_all.items[index].content[i] +"</li>";
+        list_content.innerHTML = list_content.innerHTML +"<li onclick='bestlist_list_remove(this)' value='"+ i +"'>"+ list_all.items[index].content[i] +"</li>";
     }
 }
+
+function bestlist_remove(elem){}

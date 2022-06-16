@@ -8,8 +8,8 @@ var bestlist_add_form_text,
     doubles = {
         "items":[]
     },
-    doubles_count = 0,
-    TMP_list_all;
+    doubles_count = 0
+    /*TMP_list_all*/;
 
 if(window.location.href.match(/index/ig)){
    window.addEventListener("load", bestlist_start_home); 
@@ -69,6 +69,7 @@ function reload_list(item){
         if(item != null){
             console.log("item");
             list_all.items.push(item);
+            sessionStorage.setItem("list_current_index", list_all.items.length);
             console.log(list_all);
             localStorage.setItem("bestlist", JSON.stringify(list_all));
         }
@@ -91,7 +92,7 @@ function bestlist_load(){
         for(i=0; i<list_all.items.length;i++){
             console.log("TESTLSKDJ");
             var temp = i + 1;
-            bestlist_menu.innerHTML = bestlist_menu.innerHTML +"<div class='card' onclick='bestlist_open("+ temp +")'>"+ list_all.items[i].data.title +"</div>";
+            bestlist_menu.innerHTML = bestlist_menu.innerHTML +"<div class='card' value='"+ i +"' onclick='bestlist_open("+ temp +")'>"+ list_all.items[i].data.title +"</div>";
         }
     }else{
         console.log("noBestlist");
@@ -150,9 +151,14 @@ function bestlist_add(){
     console.log(list_all);
     localStorage.setItem("bestlist", JSON.stringify(list_all));
     bestlist_show(sessionStorage.getItem("list_current_index"));
+    bestlist_add_eingabe = [];
 }
 
+var lol_tmp = 0;
+
 function doubles_check(mode){
+    console.log(list_all);
+    lol_tmp++;
     /*for(i=0;i<eingabe.length;i++){
         for(j=0;j<eingabe.length;i++){
             if(eingabe[i] == eingabe[j]){
@@ -166,7 +172,9 @@ function doubles_check(mode){
         }
     }*/
     if(mode != "repeat"){
-        TMP_list_all = list_all.items[sessionStorage.getItem("list_current_index") - 1].content;
+        var TMP_list_all = list_all.items[sessionStorage.getItem("list_current_index") - 1].content;
+    }else{
+        var TMP_list_all = JSON.parse(sessionStorage.getItem("TMP_list_all"));
     }
     console.warn("Start");
     var listitems = TMP_list_all;
@@ -177,8 +185,10 @@ function doubles_check(mode){
                 var tmp_i = i + doubles_count; 
                 var tmp_j = j + doubles_count;
                 console.log(i);
+                console.log(j);
                 console.log(doubles_count);
                 console.log(tmp_i);
+                console.log(tmp_j);
                 list_content.getElementsByTagName("li")[tmp_i].style.color = "red";
                 list_content.getElementsByTagName("li")[tmp_j].style.color = "red";
                 console.log(TMP_list_all);
@@ -192,7 +202,8 @@ function doubles_check(mode){
                 console.log(doubles);
                 //TMP_list_all.splice(i,1);
                 TMP_list_all[i] = Math.random();
-                listitems = TMP_list_all;
+                //listitems = TMP_list_all;
+                sessionStorage.setItem("TMP_list_all", JSON.stringify(TMP_list_all));
                 doubles_check("repeat");
                 return;
             }
@@ -208,8 +219,14 @@ function doubles_check(mode){
 
 function doubles_delete(){
     for(i=0;i<doubles.items.length;i++){
-        list_all.items[sessionStorage.getItem("list_current_index") - 1].content.splice(doubles.items[i].index1,1);
+        list_all.items[sessionStorage.getItem("list_current_index") - 1].content.splice(doubles.items[i].index1,1,"DELETED");
         console.log(list_all.items[sessionStorage.getItem("list_current_index") - 1].content);
+    }
+    for(i=0;i<list_all.items[sessionStorage.getItem("list_current_index") - 1].content.length;i++){
+        if(list_all.items[sessionStorage.getItem("list_current_index") - 1].content[i] == "DELETED"){
+            list_all.items[sessionStorage.getItem("list_current_index") - 1].content.splice(i,1);
+            i = i-1;
+        };
     }
     localStorage.setItem("bestlist", JSON.stringify(list_all));
     doubles = {
@@ -223,6 +240,15 @@ function bestlist_create_init(){
     additem_button.style.display = "none";
     bestlist_create_form_title_input.style.display = "block";
     list_create_form.style.display = "block";
+    if(localStorage.getItem("bestlist")){}else{
+        var list_template = {
+            "items": [/*{
+                "data":{},
+                "content": []
+            }*/]
+        };
+        localStorage.setItem("bestlist", JSON.stringify(list_template));
+    }
     /*bestlist_create_form_add_button.setAttribute('onclick',"bestlist_create_add()");
     bestlist_create_form_button.setAttribute("onclick", "bestlist_create()");*/
 }
@@ -246,22 +272,32 @@ function bestlist_create(){
 }
 
 function bestlist_show(index){
-    console.log(index);
+    //console.log(index);
     additem_button.style.display = "block";
     list_create_form.style.display = "none";
     list_add_form.style.display = "none";
-    console.log("GO");
     index = index - 1;
     sessionStorage.setItem("list_site_mode", "show");
     programm_state = "show_list";
     list_all = JSON.parse(localStorage.getItem("bestlist"));
-    console.log("GOGOGOG");
     list_content.innerHTML = "";
     list_title.innerHTML = list_all.items[index].data.title;
     for(i=0; i<list_all.items[index].content.length;i++){
-        console.log("GO");
         list_content.innerHTML = list_content.innerHTML +"<li onclick='bestlist_list_remove(this)' value='"+ i +"'>"+ list_all.items[index].content[i] +"</li>";
     }
 }
 
-function bestlist_remove(elem){}
+function bestlist_list_remove(elem){
+    console.warn("losche");
+    console.log(elem.value);
+    list_all.items[sessionStorage.getItem("list_current_index") - 1].content.splice(elem.value, 1);
+    console.warn(list_all.items[sessionStorage.getItem("list_current_index") - 1].content);
+    localStorage.setItem("bestlist", JSON.stringify(list_all));
+    bestlist_show(sessionStorage.getItem("list_current_index"));
+}
+
+function bestlist_remove(elem){
+    list_all.items.splice(sessionStorage.getItem("List_current_index") - 1, 1);
+    localStorage.setItem("bestlist", JSON.stringify(list_all));
+    window.location = "index.html";
+}

@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    z-index: 950;
 }
 
 #bestlist_add_form{
@@ -24,6 +25,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    z-index: 950;
 }
 
 #bestlist_add_form_text{
@@ -40,6 +42,7 @@
     padding: 10px;
     border-radius: 10px;
     position: relative;
+    z-index: 999;
 }
 
 #bestlist_add_form_content{
@@ -47,6 +50,7 @@
     border-radius: 10px;
     background-color: green;
     position: relative;
+    z-index: 999;
 }
 
 #bestlist_add_form_close{

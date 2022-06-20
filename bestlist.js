@@ -302,7 +302,7 @@ function bestlist_show(index){
     list_content.innerHTML = "";
     list_title.innerHTML = list_all.items[index].data.title;
     for(i=0; i<list_all.items[index].content.length;i++){
-        list_content.innerHTML = list_content.innerHTML +"<li onclick='bestlist_list_remove(this)' value='"+ i +"'>"+ list_all.items[index].content[i] +"</li>";
+        list_content.innerHTML = list_content.innerHTML +"<li onclick='bestlist_list_remove(this)' >"+ list_all.items[index].content[i] +"</li>"; //value='"+ i +"'
     }
 }
 

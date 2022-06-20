@@ -41,7 +41,8 @@
     border-bottom: 1px solid black;
     padding-bottom: 10px;
     background-color: white;
-    z-index: 999;
+    z-index: 900;
+    width: 100%;
 }
 
 .red{

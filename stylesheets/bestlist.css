@@ -1,0 +1,92 @@
+#list_content{
+    cursor:pointer;
+    font-size: 2em;
+    margin:0;
+}
+
+#list_content li:hover{
+    color:red;
+    cursor: pointer;
+}
+
+#list_content_container{
+    margin:10px;
+}
+
+#additem_button{
+    background-color: #66c166;
+}
+
+#list_title{
+    margin: 0;
+}
+
+.list_title_container{
+    margin-top: 60px;
+    padding-top: 20px;
+    position: sticky;
+    height: 70px;
+    top: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+    background-image: linear-gradient(to bottom, #ffffff 55px, transparent);
+}
+
+.list_toolbar{
+    display: flex;
+    position: fixed;
+    top:0;
+    left: 0;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+.red{
+    background-color: #c16666;
+}
+
+.remove_list:hover{
+    background-color: #fb5757 !important;
+}
+
+.remove_list{
+    background-color: #f0f0f0 !important;
+}
+
+#doubles_button{
+    display: none;
+}
+
+#doubles_button:hover{
+    background-color: #fb5757;
+}
+
+#doubles_check_button{
+    /*background-color: #6694c1;*/
+}
+
+a{
+    text-decoration: none;
+    background: lightcoral;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top:5px;
+    color: black;
+    width: 100%;
+    text-align:center;
+}
+
+a:hover{
+    background-color: #df5e5e;
+}
+
+.back{
+    display: flex;
+    position: fixed;
+    bottom:0;
+    left:0;
+    width: 100%;
+}

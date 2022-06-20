@@ -8,7 +8,9 @@ var bestlist_add_form_text,
     doubles = {
         "items":[]
     },
-    doubles_count = 0
+    doubles_count = 0,
+    bestlist_add_form_close,
+    bestlist_create_form_close
     /*TMP_list_all*/;
 
 if(window.location.href.match(/index/ig)){
@@ -38,6 +40,7 @@ function bestlist_start_list(){
     bestlist_create_form_title_input = document.getElementById("bestlist_create_form_title_input");
     bestlist_create_form_add_button = document.getElementById("bestlist_create_form_add_button");
     bestlist_create_form_button = document.getElementById("bestlist_create_form_button");
+    //bestlsite_create_form_close = document.getElementById("bestlist_create_form_close");
     
     bestlist_add_form_text = document.getElementById("bestlist_add_form_text");
     bestlist_add_form_input = document.getElementById("bestlist_add_form_input");
@@ -45,6 +48,9 @@ function bestlist_start_list(){
     bestlist_add_form_add_button = document.getElementById("bestlist_add_form_add_button");
     bestlist_add_form_button = document.getElementById("bestlist_add_form_button");
     list_add_form = document.getElementById("bestlist_add_form");
+    bestlist_add_form_close = document.getElementById("bestlist_add_form_close");
+
+    bestlist_add_form_close.addEventListener("click", bestlist_add_form_close_func);
 
     list_content = document.getElementById("list_content");
     list_title = document.getElementById("list_title");
@@ -92,7 +98,7 @@ function bestlist_load(){
         for(i=0; i<list_all.items.length;i++){
             console.log("TESTLSKDJ");
             var temp = i + 1;
-            bestlist_menu.innerHTML = bestlist_menu.innerHTML +"<div class='card' value='"+ i +"' onclick='bestlist_open("+ temp +")'>"+ list_all.items[i].data.title +"</div>";
+            bestlist_menu.innerHTML = bestlist_menu.innerHTML +"<div class='card' value='"+ i +"' onclick='bestlist_open("+ temp +")'><h2>"+ list_all.items[i].data.title +"</h2></div>";
         }
     }else{
         console.log("noBestlist");
@@ -112,10 +118,19 @@ function bestlist_open(index){
     window.location = "list.html";
 }
 
+function bestlist_add_form_close_func(){
+    additem_button.style.display = "block";
+    list_create_form.style.display = "none";
+    list_add_form.style.display = "none";
+    sessionStorage.setItem("list_site_mode", "show");
+    programm_state = "show_list";
+}
+
 function bestlist_add_init(){
     programm_state = "add_to_list";
     additem_button.style.display = "none";
-    list_add_form.style.display = "block";
+    list_add_form.style.display = "flex";
+    bestlist_add_form_text.innerHTML = "";
 }
 
 function bestlist_add_add(){
@@ -212,6 +227,8 @@ function doubles_check(mode){
                 console.warn("Fertig");
                 doubles_count = 0;
                 console.warn(list_all);
+                document.getElementById("doubles_check_button").style.display = "none";
+                document.getElementById("doubles_button").style.display = "block";
             }
         }
     }
@@ -232,6 +249,8 @@ function doubles_delete(){
     doubles = {
         "items":[]
     };
+    document.getElementById("doubles_button").style.display = "none";
+    document.getElementById("doubles_check_button").style.display = "block";
     bestlist_show(sessionStorage.getItem("list_current_index"));
 }
 
@@ -239,7 +258,7 @@ function bestlist_create_init(){
     programm_state = "create_list";
     additem_button.style.display = "none";
     bestlist_create_form_title_input.style.display = "block";
-    list_create_form.style.display = "block";
+    list_create_form.style.display = "flex";
     if(localStorage.getItem("bestlist")){}else{
         var list_template = {
             "items": [/*{

@@ -2,6 +2,22 @@
     font-family: calibri;
 }
 
+body{
+    margin:0;
+}
+
+button{
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: darkgray;
+}
+
 .card_container{
     box-sizing: content-box;
     width: 100%;
@@ -15,13 +31,10 @@
     margin: 10px;
     background-color: orange;
     border-radius: 10px;
-    cursor: pointer;
+    cursor: alias;
 }
 
 .card h2{
-    margin-top:0;
+    margin:0;
 }
 
-#list_content{
-    cursor:pointer;
-}

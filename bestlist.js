@@ -19,6 +19,8 @@ if(window.location.href.match(/index/ig)){
     window.addEventListener("load", bestlist_start_list);
 }
 
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').then(function(registration){registration.update()})}; //experimenteller Offlinemodus
+
 window.addEventListener("keydown", keyset);
 
 function keyset(evt){

@@ -18,7 +18,7 @@ async function starthack(){
             }
         }
         window.scrollTo(0, document.body.scrollHeight);
-        await sleep(1);
+        await sleep(0.00001);
         counter++;
     }
 }

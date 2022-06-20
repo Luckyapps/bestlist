@@ -1,0 +1,50 @@
+button{
+    cursor:pointer;
+}
+
+.grid-container{
+    position: relative;
+    width: 100%;
+    background-color: blue;
+    display: grid;
+    grid-template-columns: auto min-content;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.title{
+    background-color: #7fffd4;
+    grid-column: 1 / span 2;
+    text-align: center;
+}
+
+.left-grid{
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.right-grid{
+    background-color: yellow;
+    padding: 10px;
+}
+
+.card{
+    background-color: gray;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.sticky_menu{
+    position: sticky;
+    top: 10px;
+}
+
+.api_output_text{
+    background-color: yellow;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}

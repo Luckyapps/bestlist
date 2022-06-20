@@ -15,7 +15,10 @@ self.addEventListener('install', function (event) {
           "manifest.json",
           "bestlist.js",
           "stylesheets/bestlist_form.css",
-          "stylesheets/bestlist.css"
+          "stylesheets/bestlist.css",
+          "easter/hack.css",
+          "easter/hack.js",
+          "easter/lol.html"
           
         ]);
       })

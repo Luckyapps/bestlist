@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+    padding:0;
+    background-color:black;
+    color: green;
+    overflow: hidden;
+}
+
+#hackbox{
+    width: 100%;
+    box-sizing: border-box;
+}

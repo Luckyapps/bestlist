@@ -41,6 +41,7 @@
     border-bottom: 1px solid black;
     padding-bottom: 10px;
     background-color: white;
+    z-index: 999;
 }
 
 .red{
@@ -77,6 +78,7 @@ a{
     color: black;
     width: 100%;
     text-align:center;
+    font-size: 1.5em;
 }
 
 a:hover{

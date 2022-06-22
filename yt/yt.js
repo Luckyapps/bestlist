@@ -14,10 +14,17 @@ function yt_start(){
     vid_name = document.getElementById("vid_name");
     vid_desc = document.getElementById("vid_desc");
     vid_links = document.getElementById("vid_links");
+    vid_keyw = document.getElementById("vid_keyw");
+    vid_aut = document.getElementById("vid_aut");
+    vid_leng= document.getElementById("vid_leng");
 
     input_data = input.value;
 
-    video_id = input_data.substring(input_data.lastIndexOf("?v=") + 3);
+    if(input_data.lastIndexOf("?v=") != -1){
+        video_id = input_data.substring(input_data.lastIndexOf("?v=") + 3);
+    }else{
+        video_id = input_data.substring(input_data.lastIndexOf("be/") + 3);
+    }
     load_data();
 }
 
@@ -40,8 +47,13 @@ function yt_go(response){
     console.log(response);
     vid_name.innerHTML = response.title;
     vid_desc.innerHTML = response.description;
+    vid_keyw.innerHTML = response.keywords;
+    vid_aut.innerHTML = response.author;
+    vid_leng.innerHTML = response.length;
 
     var linklist = Object.keys(response.link);
+
+    vid_links.innerHTML = "";
 
     for(i=0;i<linklist.length;i++){
         console.log(response.link[linklist[i]]);

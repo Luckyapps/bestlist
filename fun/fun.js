@@ -34,6 +34,6 @@ async function bitcoin(){
 
 async function bored(){
     var bored_output = document.getElementById("bored_output");
-    var data = await getData("http://www.boredapi.com/api/activity/");
+    var data = await getData("https://www.boredapi.com/api/activity/");
     bored_output.innerHTML = "<p>"+ data.activity +"</p><p>Kosten: "+ data.price +"</p>";
 }

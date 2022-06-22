@@ -37,3 +37,50 @@ async function bored(){
     var data = await getData("https://www.boredapi.com/api/activity/");
     bored_output.innerHTML = "<p>"+ data.activity +"</p><p>Kosten: "+ data.price +"</p>";
 }
+
+async function joke(){
+    var joke_output = document.getElementById("joke_output");
+    var data = await getData("https://api.chucknorris.io/jokes/random");
+    joke_output.innerHTML = data.value;
+    console.log(data);
+}
+
+async function randuser(){
+    var randuser_output = document.getElementById("randuser_output");
+    var data = await getData("https://randomuser.me/api/");
+    randuser_output.innerHTML = "<h4> "+ data.results[0].name.title +" "+ data.results[0].name.first +" "+ data.results[0].name.last +"</h4>"
+    +"<img src='"+ data.results[0].picture.large+"'></img>"
+    +"<p><b>Alter:</b> "+ data.results[0].dob.age +"</br>"
+    +"<b>Geburtsdatum:</b> "+ data.results[0].dob.date +"</br>"
+    +"<b>Geschlecht:</b> "+ data.results[0].gender +"</br>"
+    +"<b>Email:</b> "+ data.results[0].email +"</br>"
+    +"<b>Handy:</b> "+ data.results[0].cell +"</br>"
+    +"<b>Telefon:</b> "+ data.results[0].phone +"</br>"
+    +"<b>Adresse:</b> "+ data.results[0].location.street.name +" "+ data.results[0].location.street.number +", "+ data.results[0].location.postcode +" "+ data.results[0].location.city +", "+ data.results[0].location.state +", "+ data.results[0].location.country +"</br>"
+    +"<b>Username:</b> "+ data.results[0].login.username +"</br>"
+    +"<b>Passwort:</b> "+ data.results[0].login.password +"</br>"
+    +"<b>Nationalitat:</b> "+ data.results[0].nat +"</br>";
+    console.log(data);
+}
+
+var datas;
+
+function yt(){
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'bdd3fc1f2fmsh2b2e20aff4b7655p13a3fdjsn6bfe325132a9',
+            'X-RapidAPI-Host': 'ytstream-download-youtube-videos.p.rapidapi.com'
+        }
+    };
+    
+    fetch('https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=_bM2ctSSSYI', options)
+        .then(response => response.json())
+        .then(response => yt_go(response))
+        .catch(err => console.error(err));
+}
+
+function yt_go(response){
+    console.log(response);
+    datas = response;
+}

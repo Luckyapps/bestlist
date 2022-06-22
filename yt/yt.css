@@ -1,0 +1,35 @@
+.flex_container{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    /*background: green;*/
+    text-align: center;
+    flex-direction: column;
+    gap:10px;
+}
+
+.title{
+    background-color: gray;
+    border-radius: 10px;
+}
+
+.card{
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.output{
+    display: flex;
+    flex-direction: column;
+}
+
+.invisible{
+    display: none;
+}
+
+#vid_links{
+    display: flex;
+    flex-direction: column;
+    gap:1em
+}

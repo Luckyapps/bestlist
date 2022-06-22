@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bestlist --> FUN --> YT Download</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="yt.css">
+    </head>
+    <body>
+        <script src="yt.js"></script>
+        <div class="flex_container">
+            <div class="title"><h1>Youtube Downloader</h1></div>
+            <div class="card">
+                <h2>URL eingeben</h2>
+                <p>Bitte gib die URL deines Videos ein.</p>
+                <input type="url" id="input"></input><button onclick="yt_start()">Senden</button>
+            </div>
+            <div class="card output invisible" id="output">
+                <h3 id="vid_name"></h3>
+                <p id="vid_desc"></p>
+                <div>
+                    Videolinks:
+                    <div id="vid_links"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

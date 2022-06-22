@@ -5,7 +5,7 @@ button{
 .grid-container{
     position: relative;
     width: 100%;
-    background-color: blue;
+    /*background-color: blue;*/
     display: grid;
     grid-template-columns: auto min-content;
     gap: 10px;
@@ -19,14 +19,14 @@ button{
 }
 
 .left-grid{
-    background-color: green;
+    /*background-color: green;*/
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .right-grid{
-    background-color: yellow;
+    /*background-color: yellow;*/
     padding: 10px;
 }
 
@@ -40,6 +40,9 @@ button{
 .sticky_menu{
     position: sticky;
     top: 10px;
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .api_output_text{

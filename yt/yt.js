@@ -16,7 +16,8 @@ function yt_start(){
     vid_links = document.getElementById("vid_links");
     vid_keyw = document.getElementById("vid_keyw");
     vid_aut = document.getElementById("vid_aut");
-    vid_leng= document.getElementById("vid_leng");
+    vid_leng = document.getElementById("vid_leng");
+    vid_thumb = document.getElementById("vid_thumb");
 
     input_data = input.value;
 
@@ -46,6 +47,7 @@ function load_data(){
 function yt_go(response){
     console.log(response);
     vid_name.innerHTML = response.title;
+    vid_thumb.src = response.thumb
     vid_desc.innerHTML = response.description;
     vid_keyw.innerHTML = response.keywords;
     vid_aut.innerHTML = response.author;
@@ -56,7 +58,6 @@ function yt_go(response){
     vid_links.innerHTML = "";
 
     for(i=0;i<linklist.length;i++){
-        console.log(response.link[linklist[i]]);
         vid_links.innerHTML = vid_links.innerHTML +"<div><a href='"+ response.link[linklist[i]][0] +"'>"
         + response.link[linklist[i]][3]
         +" | "+ response.link[linklist[i]][1]

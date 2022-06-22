@@ -13,6 +13,11 @@
     border-radius: 10px;
 }
 
+input{
+    width: 90%;
+    text-align: center;
+}
+
 .card{
     background-color: lightgray;
     border-radius: 10px;

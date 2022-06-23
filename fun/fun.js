@@ -63,6 +63,34 @@ async function randuser(){
     console.log(data);
 }
 
+var data_age, data_gender;
+
+async function guess(){
+    var guess_input = document.getElementById("guess_input");
+    var guess_output = document.getElementById("guess_output");
+    data_age = await getData("https://api.agify.io?name="+ guess_input.value);
+    data_gender = await getData("https://api.genderize.io?name="+ guess_input.value);
+    var data_nationality = await getData("https://api.nationalize.io?name="+ guess_input.value);
+    console.log(data_age);
+    console.log(data_gender);
+    console.log(data_nationality);
+    guess_output.innerHTML = "<h4>"+ data_age.name +"</h4>"
+    +"<b>Alter: </b>"+ data_age.age +"<br>"
+    +"<b>Geschlecht: </b>"+ data_gender.gender +" (Wahrscheinlichkeit: "+ data_gender.probability * 100 +"%)<br><b>Nationalitat: </b>";
+    for(i=0;i<data_nationality.country.length;i++){
+        data_country = await getData("https://restcountries.com/v3.1/alpha/"+ data_nationality.country[i].country_id);
+        guess_output.innerHTML = guess_output.innerHTML +"<li>"+ data_country[0].name.official +" (Wahrscheinlichkeit: "+ Math.round(((data_nationality.country[i].probability * 100) + Number.EPSILON) * 100) / 100 +"%)</li>";
+    }//https://restcountries.com/v3.1/alpha/CODE
+    //guess_output.innerHTML = guess_output.innerHTML +"</ul>";
+}
+
+//https://rapidapi.com/weatherapi/api/weatherapi-com/
+
+async function country(){
+    var data = await getData("https://restcountries.com/v3.1/alpha/"+ document.getElementById("guess_input").value);
+    console.log(data);
+}
+
 var datas;
 
 function yt(){
@@ -83,4 +111,38 @@ function yt(){
 function yt_go(response){
     console.log(response);
     datas = response;
+}
+
+function weather_load(){
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '467dffbfb2mshfa882a5ede5dc1dp1929bbjsnaf5b21ec31df',
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+    };
+    
+    fetch('https://weatherapi-com.p.rapidapi.com/forecast.json?q='+ document.getElementById("weather_input").value +"&days=3", options)
+        .then(response => response.json())
+        .then(response => weather(response))
+        .catch(err => console.error(err));
+}
+
+function weather(response){
+    console.log(response);
+    var data = response;
+    var weather_input = document.getElementById("weather_input");
+    var weather_output = document.getElementById("weather_output");
+    weather_output.innerHTML = "<h4>Das Aktuelle Wetter aus "+ data.location.name +" in "+ data.location.region +", "+ data.location.country +"</h4>"
+    +"Stand: "+ data.current.last_updated +"<br>"
+    +"<b>Beschreibung: </b>"+ data.current.condition.text +"<br>"
+    +"<b>Temperatur: </b>"+ data.current.temp_c +"<br>"
+    +"<b>gefuhlte Temperatur: </b>"+ data.current. feelslike_c +"<br>"
+    +"<b>Luftfeuchtigkeit: </b>"+ data.current.humidity +"<br>"
+    +"<b>Windgeschwindigkeit: </b>"+ data.current.wind_kph +"<br>"
+    +"<b>Boengeschwindigkeit: </b>"+ data.current.gust_kph +"<br>"
+    +"<b>Windrichtung: </b>"+ data.current.wind_degree +" "+ data.current.wind_dir +"<br>"
+    +"<b>Luftdruck: </b>"+ data.current.pressure_mb +" mBar<br>"
+    +"<b>UV: </b>"+ data.current.uv +"<br>"
+    +"<b>Wolken: </b>"+ data.current.cloud +"<br>";
 }

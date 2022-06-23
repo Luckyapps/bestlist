@@ -42,6 +42,21 @@
                     <button onclick="randuser()">Druck mich</button>
                     <div id="randuser_output" class="api_output_text"></div>
                 </div>
+                <div class="card" id="guesser">
+                    <h3>Rater</h3>
+                    <p>Lasse anhand deines Namens dein Alter, dein Geschlecht und deine nationalitat Erraten.</p>
+                    <input id="guess_input" type="text"></input>
+                    <button onclick="guess()">Druck mich</button>
+                    <button onclick="country()">LAND</button><!---->
+                    <div id="guess_output" class="api_output_text"></div>
+                </div>
+                <div class="card" id="weather">
+                    <h3>Wetter</h3>
+                    <p>Lasse dir die aktuellen Wetterdaten fur einen bestimmten Ort anzeigen.</p>
+                    <input id="weather_input"></input>
+                    <button onclick="weather_load()">Druck mich</button>
+                    <div id="weather_output" class="api_output_text"></div>
+                </div>
                 <div class="card" id="yt">
                     <h3>YT</h3>
                     <p><a href="https://rapidapi.com/ytjar/api/ytstream-download-youtube-videos/">LINK</a></p>
@@ -59,6 +74,7 @@
                         <li><a href="#bitcoin">Bitcoinkurs</a></li>
                         <li><a href="#bored">Ideen gegen Langeweile</a></li>
                         <li><a href="#joke">Witz</a></li>
+                        <li><a href="#randuser">Fakeprofil</a></li>
                     </ul>
                 </div>
             </div>

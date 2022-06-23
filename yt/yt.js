@@ -44,8 +44,16 @@ function load_data(){
         .catch(err => console.error(err));
 }
 
+var datass;
+
 function yt_go(response){
     console.log(response);
+    datass = response;
+    if(response.message != undefined){
+        vid_name.innerHTML = response.message;
+        output.classList.remove("invisible");
+        return;
+    }
     vid_name.innerHTML = response.title;
     vid_thumb.src = response.thumb
     vid_desc.innerHTML = response.description;

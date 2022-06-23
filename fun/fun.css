@@ -51,3 +51,13 @@ button{
     padding: 10px;
     margin-top: 10px;
 }
+
+@media only screen and (max-width: 570px) {
+    .grid-container{
+        display: unset;
+        grid-template-columns: none;
+    }
+    .title{
+        margin-bottom:10px;
+    }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bestlist --> weather</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="weather.css">
+    </head>
+    <body>
+        <script src="weather.js"></script>
+        <div class="head">
+            <h1>Wetter</h1>
+            <div class="input_container">
+               <input id="input"></input> 
+               <button onclick="load(this)">Ort offnen</button>
+            </div>
+        </div>
+
+        <div id="container" class="invisible">
+        <div class="weather_head">
+            <div id="loc"></div>
+            <img id="img_head"></img>
+            <div id="desc"></div>
+            <div id="head_tmp"></div>
+            <div id="head_info_container">
+                <div>
+                    <div class="head_info_title">Wind</div>
+                </div>
+                <div>
+                    <div class="head_info_title">Druck</div>
+                </div>
+                <div>
+                    <div class="head_info_title">Feuchtigkeit</div>
+                </div>
+                <div>
+                    <div class="head_info_title">UV</div>
+                </div>
+            </div>
+        </div>
+        <div class="content"></div>
+        </div>
+        <div class="footer"><p></p></div>
+    </body>
+</html>
